@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Panel - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1/demo.css">
+    <script type="text/javascript" src="jquery-easyui-1/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-1/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript">
+    
+        $(document).ready(function(){
+            $('#btn').click(function(){
+                $("#show_data").load('server.php');    
+            
+            });//end btn click
+    
+        });//end document
+    $('#dd').dialog({
+        title: 'My Dialog',
+        //closed: true,
+        autoOpen:false,
+        //cache: false,
+        //href: 'get_content.php',
+        //modal: true
+    });
+     
+    
+    
+    </script>
+</head>
+<body>
+    <div id="p" class="easyui-panel" title="查詢條件" style="width:900px;height:150px;padding:10px;" data-options="iconCls:'nones',collapsible:true,maximizable:true">
+        <p style="font-size:14px">ADM狀態 :</p>
+        <select id="cc" class="easyui-combobox" name="dept" style="width:200px;">
+            <option value="aa">請選擇</option>
+            <option>啟用</option>
+            <option>停用</option>
+        </select>
+        <input type="submit" id ="btn" value="查詢" onclick="btnQuery()">
+    </div>
+    
+    
+    <table id="tt" class="easyui-datagrid" style="width:900px;height:250px" 
+           data-   options="iconCls:'nones',collapsible:true,maximizable:true"
+            url="data/datagrid_data.json"
+            title="查詢結果" iconCls="icon-save"
+            toolbar="#tb" rownumbers="true">
+        <thead>
+            <tr>
+                <th field="ADMId" width="50px">ADM ID</th>
+                <th field="ADMName" width="80px">AMD 名稱</th>
+                <th field="ADMLocation" width="80px" >設置地點說明</th>
+                <th field="link" width="80px" >網路位置</th>
+                <th field="Longitude" width="60px">請輸入</th>
+                <th field="Latitude" width="60px">請輸入</th>
+                <th field="linkKey" width="80" >資料交換KEY</th>
+                <th field="statusxName" width="60" >ADM狀態</th>
+                <th field="memo" width="60" >備註</th>
+                <th field="creatUser" width="60" >建立人員</th>
+                <th field="creatTime" width="60" >建立時間</th>
+                <th field="actUser" width="60" >異動人員</th>
+                <th field="actTime" width="60" >異動時間</th>
+            </tr>
+        </thead>
+    </table>
+    
+    <div id="tb">
+        <div id="dd" class="easyui-dialog" style="padding:5px;width:400px;height:200px;"
+        ><!--toolbar="#dlg-toolbar" buttons="#dlg-buttons"-->
+            Dialog Content.
+        </div>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:alert('Add')">新增</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="$('#dd').dialog('open')">修改</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:alert('Remove')">刪除</a>
+    </div>
+     
+    
+    
+    
+    
+    
+</body>
+</html>

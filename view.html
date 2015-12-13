@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-1/demo.css">
+    <script type="text/javascript" src="jquery-easyui-1/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-1/jquery.easyui.min.js"></script>
+    <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>    我原本用這個，但無法用了-->
+    
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script><!--後來加的-->
+ 
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script><!--後來加的-->
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />   <!--後來加的-->
+    
+    <script type="text/javascript">
+        
+        var getUserList = function(){
+                        
+            $.ajax(
+                {
+                    type: "GET",
+                    url:"http://127.0.0.1//jquery/server.php",
+                    datatype:"json",
+                    success:function(data){
+
+                        var posts = jQuery.parseJSON(data);
+
+                        alert(posts[0].userId+posts[0].userName);
+
+                    },
+                    error:function(){
+
+                        alert("失敗");
+
+                    } 
+                }
+            );
+
+        }
+        
+        var addUser = function(){
+            
+            var userId = $('#userId').val();
+            var userName = $('#userName').val();
+            var tel = $('#tel').val();
+            var age = $('#age').val();
+            
+            
+            var dataString = '&userId='+userId+'&userName='+userName+'&tel='+tel+'&age='+age;
+            
+            
+            /*     alert("您按下儲存!"+userId);     */
+            
+                $.ajax({
+        
+                        type:"post",
+                        url:"http://127.0.0.1//jquery/addUser.php",
+                        
+                        data:dataString,
+                        dataType:"json",
+                        success:function(){
+                            alert("成功"+userId+userName+tel+age);
+                        },
+                        error:function(){}
+                              
+                });
+        
+            
+        }
+        
+        
+        var editUser = function(){
+            
+        }
+        
+        var deleteUser = function(){
+            
+        }
+        
+        $(document).ready(
+            function() {
+                
+                $("#btn").click(getUserList);
+                
+            }
+        );//end document
+        
+       $(function(){
+           
+            $('#dialog1').dialog({
+                    autoOpen : false,
+                    title:"新增使用者",
+                    width: 250,
+                    height: 380,
+                
+                    buttons : {
+                        "確定":function(){addUser();}
+                            /*alert("您按下確定!");*/
+                        ,
+                        "取消":function(){
+                            $('#dialog1').dialog("close");
+                        }
+                    }
+                        
+                });
+                $('#addTest').click(function(){
+                    $('#dialog1').dialog('open');
+               });
+               $('#opener').click(function(){
+                    $('#dialog1').dialog('open');
+               });
+           });
+    </script>
+    <style>
+        
+    
+    
+    
+    </style>
+    
+    
+</head>
+<body>
+    
+    
+    <div id="p" class="easyui-panel" title="查詢條件" style="width:600px;height:200px;padding:10px;"
+            data-options="iconCls:'none',collapsible:true,maximizable:true">
+
+        <label for="value_statusx" style="font-size:14px">ＡＤＭ狀態：</label>
+            <select id="sel" class="easyui-combobox" name="value_statusx" >  <!--選擇下拉選項，結果卡著不動-->
+                <option value="10">請選擇</option>
+                <option value="20">啟用</option>
+                <option value="30">停用</option>
+            </select>
+        <input type="button" id="btn" value="show">
+
+    </div>
+    <table id="data_show" class="easyui-datagrid" title="查詢結果" data-options="url:'http://127.0.0.1//jquery/server.php'"style="width:600px;height:200px;" toolbar="#toolbar">
+        <thead>
+            <tr>
+                <th field="userId" width="150px">UserId</th>
+                <th field="userName" width="150px">UserName</th>
+                <th field="tel" width="150px">Tel</th>
+                <th field="age" width="150px">Age</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="addTest">Add</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="editUser()">Update</a>
+	    <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="deleteUser()">Delete</a>
+    </div>
+    
+    <div id="dialog1">
+        
+        <form action="addUser.php" method="post">
+        
+            <label for="id">UserId:</label>
+            <input type="text" name="id" id="userId">
+            <label for="name">UserName:</label>
+            <input type="text" name="name" id="userName">
+            <label for="tel">Tel:</label>
+            <input type="text" name="tel" id="tel">
+            <label for="age">Age:</label>
+            <input type="text" name="age" id="age">
+            
+            
+        </form>
+    
+    </div>
+    <input type="button" id="opener" value="open the dialog">
+    
+    
+    
+</body>
+</html>    
