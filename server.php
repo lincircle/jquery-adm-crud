@@ -1,9 +1,6 @@
 <?php
       
-$db_host = "127.0.0.1"; //資料庫主機位址
-$db_user = "root"; //資料庫使用者名稱
-$db_pswd = "1013807"; //資料庫使用者密碼
-$db_name = "show_db"; //資料庫名稱
+
 
 $mysqli = new mysqli($db_host, $db_user, $db_pswd, $db_name);
 /*是否有連線*/
